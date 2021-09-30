@@ -65,11 +65,11 @@ opt = parser.parse_args()
 
 print(opt)
 
-lr = args.lr
-nEpochs = args.nEpochs
-batchSize = args.batchSize
-testBatchSize = args.testBatchSize
-isCuda = args.isCuda
+lr = opt.lr
+nEpochs = opt.nEpochs
+batchSize = opt.batchSize
+testBatchSize = opt.testBatchSize
+isCuda = opt.isCuda
 
 set_seed(0)
 
