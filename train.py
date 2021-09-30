@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
-from utils import get_most_recent_checkpoint,get_test_set,get_training_set
+from utils import get_most_recent_checkpoint,get_test_set,get_training_set, set_seed
 from math import log10
 from model.srcnn_upconv7 import Upconv
 from model.rdn import RDN
@@ -70,6 +70,8 @@ nEpochs = args.nEpochs
 batchSize = args.batchSize
 testBatchSize = args.testBatchSize
 isCuda = args.isCuda
+
+set_seed(0)
 
 if isCuda and not torch.cuda.is_available():
     raise Exception("No GPU, please change isCuda False")
