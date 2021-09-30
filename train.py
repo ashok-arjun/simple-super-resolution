@@ -112,12 +112,7 @@ elif opt.model == "RDN":
     criterion = model.criterion
     optimizer = model.optimizer
     scheduler = model.scheduler
-    if len(next(os.walk('ckpt/RDN'))[2]) != 0:
-        min_iter = 1
-        last_ckpt, min_iter = get_most_recent_checkpoint('ckpt/')
-        model = torch.load(last_ckpt)
-    else :
-        min_iter = 1
+    min_iter = 1
 
 print('===> Model Initialize Complete')
 
