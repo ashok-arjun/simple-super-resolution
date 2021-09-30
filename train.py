@@ -37,7 +37,7 @@ def download_bsd300(dest):
                 tar.extract(item, dest)
 
         remove(file_path)
-     else:
+    else:
         print("BSDS300 dataset already exists")
 
     return output_image_dir
