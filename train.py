@@ -12,11 +12,35 @@ import argparse
 import os
 
 
+from os.path import exists, join, basename
+from os import makedirs, remove
+import urllib
+import tarfile
 
-'''
-Original : https://github.com/pytorch/examples/tree/master/super_resolution
+def download_bsd300(dest):
+    output_image_dir = join(dest, "BSDS300/images")
 
-'''
+    if not exists(output_image_dir):
+        makedirs(dest)
+        url = "http://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/BSDS300-images.tgz"
+        print("downloading url ", url)
+
+        data = urllib.request.urlopen(url)
+
+        file_path = join(dest, basename(url))
+        with open(file_path, 'wb') as f:
+            f.write(data.read())
+
+        print("Extracting data")
+        with tarfile.open(file_path) as tar:
+            for item in tar:
+                tar.extract(item, dest)
+
+        remove(file_path)
+     else:
+        print("BSDS300 dataset already exists")
+
+    return output_image_dir
 
 
 '''
@@ -47,8 +71,9 @@ device = torch.device("cuda" if isCuda else "cpu")
 
 print('===> Loading datasets')
 
-train_set = get_training_set(opt.upscale_factor,opt.datapath)
-test_set = get_test_set(opt.upscale_factor,opt.datapath)
+dataset_path = download_bsd300(opt.datapath)
+train_set = get_training_set(opt.upscale_factor,dataset_path)
+test_set = get_test_set(opt.upscale_factor,dataset_path)
 
 training_data_loader = DataLoader(dataset=train_set, num_workers=opt.threads, batch_size=batchSize, shuffle=True)
 testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.threads, batch_size=testBatchSize, shuffle=False)
