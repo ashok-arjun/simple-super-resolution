@@ -8,12 +8,6 @@ from torchvision.transforms import Compose, CenterCrop, ToTensor, Resize
 
 from dataset import DatasetFromFolder
 
-
-'''
-Original : https://github.com/pytorch/examples/tree/master/super_resolution
-
-'''
-
 cropsize = 256
 def calculate_valid_crop_size(crop_size, upscale_factor):
     return crop_size - (crop_size % upscale_factor)
@@ -34,8 +28,7 @@ def target_transform(crop_size):
     ])
 
 def get_training_set(upscale_factor,folder):
-    root_dir = join("dataset", folder)
-    train_dir = join(root_dir, "train")
+    train_dir = join(folder, "train")
     crop_size = calculate_valid_crop_size(cropsize, upscale_factor)
 
     return DatasetFromFolder(train_dir,
@@ -44,8 +37,7 @@ def get_training_set(upscale_factor,folder):
 
 
 def get_test_set(upscale_factor,folder):
-    root_dir = join("dataset", folder)
-    test_dir = join(root_dir, "test")
+    test_dir = join(folder, "test")
     crop_size = calculate_valid_crop_size(cropsize, upscale_factor)
 
     return DatasetFromFolder(test_dir,
