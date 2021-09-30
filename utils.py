@@ -8,9 +8,26 @@ from torchvision.transforms import Compose, CenterCrop, ToTensor, Resize
 
 from dataset import DatasetFromFolder
 
+import random
+import torch
+import os
+import numpy as np
+
 cropsize = 256
 def calculate_valid_crop_size(crop_size, upscale_factor):
     return crop_size - (crop_size % upscale_factor)
+
+def set_seed(seed):
+    """Sets the global seed"""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+    os.environ["PYTHONHASHSEED"] = str(seed)  
 
 
 def input_transform(crop_size, upscale_factor):
