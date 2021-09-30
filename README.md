@@ -1,20 +1,15 @@
-# PyTorch super-resolution implementations
+# PyTorch Simple Super-Resolution
 
-A collections of Super-resolution models
+## Model Reference
 
-## Requirements
-- python 3.6
-- numpy
-- pytorch >= 0.4.0
-
-
-## Models
-
-- [RDN] https://arxiv.org/abs/1802.08797
+- [Residual Dense Network for Image Super-Resolution] https://arxiv.org/abs/1802.08797
 
 
 # Usage
-- training
+
+The code will automatically download the [BSDS300 dataset](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/), and extract it to get the training and validation data.
+
+## Training
   
 ```bash
 
@@ -22,13 +17,8 @@ python3 train.py --upscale_factor 2 --datapath /model/path/to/folder
 
 ```
 
-- super-resolve
+## Inference / Super-resolution
 
 ```bash
 python3 inference.py --input_image /path/to/img --output_filename /path/to/img --model /path/to/pretrained/model
-```
-
-# Reference 
-- https://github.com/pytorch/examples
-- https://github.com/andreasveit/densenet-pytorch
-- https://github.com/xternalz/WideResNet-pytorch
+``
