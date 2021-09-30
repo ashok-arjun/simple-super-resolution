@@ -46,13 +46,8 @@ def download_bsd300(dest):
 '''
 Training Settings
 '''
-lr = 0.001 # learning rate
-nEpochs = 1000 # Number of Epochs
-batchSize = 8 # Number of training batch size
-testBatchSize = 4 # Number of test batch size
-isCuda = False # Cuda Usage
-nThread = 4 # Number of thread for data loader
-
+def str2bool(v):
+  return str(v).lower() in ("y", "yes", "true", "t", "1")
 
 parser = argparse.ArgumentParser(description='Pytorch Image/Video Super-Resolution')
 parser.add_argument('--upscale_factor',type=int,required=True, help="Super-resolution upscale factor")
@@ -60,9 +55,21 @@ parser.add_argument('--datapath',type=str,required=True,help="Path to Original d
 parser.add_argument('--model',type=str,default="RDN",help="Choose which SR model to use")
 parser.add_argument('--threads',type=int,default=4,help='Number of thread for DataLoader')
 
+parser.add_argument('--lr',type=float,default=0.001,help='Learning rate')
+parser.add_argument('--nEpochs',type=int,default=1000,help='Number of epochs')
+parser.add_argument('--batchSize',type=int,default=8,help='Training batch size')
+parser.add_argument('--testBatchSize',type=int,default=4,help='Test batch size')
+parser.add_argument('--isCuda',type=str2bool,default=True,help='Cuda Usage')
+
 opt = parser.parse_args()
 
 print(opt)
+
+lr = args.lr
+nEpochs = args.nEpochs
+batchSize = args.batchSize
+testBatchSize = args.testBatchSize
+isCuda = args.isCuda
 
 if isCuda and not torch.cuda.is_available():
     raise Exception("No GPU, please change isCuda False")
