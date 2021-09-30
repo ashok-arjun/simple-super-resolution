@@ -50,8 +50,8 @@ def str2bool(v):
   return str(v).lower() in ("y", "yes", "true", "t", "1")
 
 parser = argparse.ArgumentParser(description='Pytorch Image/Video Super-Resolution')
-parser.add_argument('--upscale_factor',type=int,required=True, help="Super-resolution upscale factor")
-parser.add_argument('--datapath',type=str,required=True,help="Path to Original data")
+parser.add_argument('--upscale_factor',type=int,default=2, help="Super-resolution upscale factor")
+parser.add_argument('--datapath',type=str,default="data/", help="Path to Original data")
 parser.add_argument('--model',type=str,default="RDN",help="Choose which SR model to use")
 parser.add_argument('--threads',type=int,default=4,help='Number of thread for DataLoader')
 
